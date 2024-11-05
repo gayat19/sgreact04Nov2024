@@ -1,0 +1,21 @@
+.Customer
+{
+    background-color: aquamarine;
+
+    
+}
+.heading{
+    font-size: 20px;
+    font-weight: bold;
+}
+.label
+{
+    font-size: 15px;
+    font-weight: bold;
+}
+.customer-div{
+    width: 18rem;
+    position: relative;
+    margin: 5px;
+    float: left;
+}

@@ -1,0 +1,7 @@
+Create a new React app
+Add your profile as 3 components
+1) Your image
+2) Your Personal info
+3) your Education and professional info as table
+
+Note use bootstrap to style your app
