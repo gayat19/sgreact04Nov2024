@@ -1,0 +1,2 @@
+Create the customer component so that we can add a new customer
+Once added should be displayed in the listing.

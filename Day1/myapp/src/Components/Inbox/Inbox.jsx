@@ -12,6 +12,9 @@ export function Inbox(){
         
     // ];
     // var messages=null;
+    const [count, setCount]=useState(0);
+
+
     var addMessage = ()=>{
         var newMessage = {id:messages.length+1, message:message};
         setMessages([...messages,newMessage]);
@@ -23,6 +26,7 @@ export function Inbox(){
             <input type="text" value={message} onChange={e=>setMessage(e.target.value)} placeholder="Type a message"/>
             <button onClick={addMessage}>Send</button>
         </div>
+        <button onClick={()=>setCount(count+1)}>+</button>{count}
         {
            messages?
                 messages.length>0?

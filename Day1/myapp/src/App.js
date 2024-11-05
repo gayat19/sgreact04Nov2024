@@ -1,5 +1,6 @@
 import Game from "./Components/Game";
 import { Inbox } from "./Components/Inbox/Inbox";
+import Todos from "./Components/Todos/Todos";
 
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
     <section>
       {/* <h1>Hello {name}</h1> */}
       {/* <Game/> */}
-     <Inbox/>
+     {/* <Inbox/> */}
+     <Todos/>
     </section>
   );
 }
