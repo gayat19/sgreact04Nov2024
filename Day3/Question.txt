@@ -1,0 +1,11 @@
+'https://dummyjson.com/recipes/tags'
+Get all the tags and display with a button -> Get reci
+
+
+When the user clicks get recipe the respective tag's recipe alone should be shown 
+
+https://dummyjson.com/recipes/tag/<tag>
+
+Main
+   Tag - iterate
+   Recipes-> Recipe

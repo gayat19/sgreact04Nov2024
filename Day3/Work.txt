@@ -1,0 +1,153 @@
+useEffect
+Child to parent communication
+useEffect trigger
+
+
+
+   ----------------------------------------
+
+Components
+|--Products
+   |--Products
+  		|--Products.jsx
+   |--Product
+  		|--Product.jsx
+|-App.jsx
+-------------------------------------------
+
+.product-div{
+    width: 25rem;
+    height: 40rem;
+    position: relative;
+    margin: 5px;
+    float: left;
+}
+-------------------------------
+
+import './Product.css';
+
+const Product=(props)=>{
+    const clickHandler=()=>{
+        //alert("you clicked on "+props.product.id);
+        props.onCartAdd(props.product.id);//raise an event to parent
+    }
+    return(
+        <div className="card product-div" >
+            <img className="card-img-top" src={props.product.thumbnail} alt=""/>
+            <div className="card-body">
+                <h5 className="card-title">{props.product.title}</h5>
+                <p className="card-text">{props.product.description}</p>
+                <button onClick={clickHandler}   className="btn btn-primary">buy @ &#x20b9;{props.product.price}</button>
+            </div>
+        </div>
+    )
+
+}
+export default Product;
+
+
+---------------------------------------------------
+
+import { useEffect,useState } from "react";
+export default function Cart(props){
+    const [cart,setCart]=useState();
+    useEffect(()=>{
+        fetch("https://dummyjson.com/products/"+props.item.id)
+        .then(response=>response.json(),err=>console.log("could not load data at this moment"))
+        .then(data=>{
+            setCart({title:data.title,
+                quantity:props.item.qty,
+                img:data.thumbnail
+            });
+    });
+        
+    },[props.item]);
+    return(
+        <section className='Cart'>
+            <div>
+                <ul>
+                    {
+                        cart?<div>
+                           <img alt={cart.title} src={cart.img} height="100" width="100"/>-  {cart.title} - {cart.quantity}
+                        </div>
+                        :null
+                    }
+                </ul>   
+            </div>
+        </section>
+    );
+}
+---------------------------------------------------
+
+import { useEffect,useState } from "react";
+import Product from "../Product/Product";
+import Cart from "../../Cart/Cart";
+
+export function Products(props){
+    const [products,setProducts]=useState([]);
+    const [cart,setCart]=useState([]);
+
+useEffect(()=>{
+  fetch("https://dummyjson.com/products")
+  .then(response=>response.json(),err=>alert("could not load data at this moment"))
+  .then(data=>setProducts(data["products"]));
+},[]);
+//parenrt's event handler- receives the data
+const addToCart=(id)=>{
+    console.log("adding to cart "+id);
+    if(cart.find(item=>item.id===id)){
+        const newCart=cart.map(item=>{
+            if(item.id===id){
+                return {...item,qty:item.qty+1};
+            }
+            return item;
+        });
+        setCart(newCart);
+        return;
+    }
+    else
+        setCart([...cart,{id:id,qty:1}]);
+}
+    return(
+        <section className='Products'>
+            <div>
+                <h2>Cart</h2>
+                    {
+                        cart.length>0?
+                            cart.map((item)=><Cart key={item.id} item={item}/>)
+                        :
+                            <li>Cart is empty</li>
+                    }
+            </div>
+            <h2>Products</h2>
+            <div>
+            {
+                products.length>0?
+                    products.map((product,index)=><Product onCartAdd={addToCart} key={index} product={product}/>)
+                :
+                    <h3>loading...</h3>
+            }
+            </div>
+            
+        </section>
+    );
+}
+
+export default Products;
+-------------------------------------------------------------
+import Game from "./Components/Game";
+import { Inbox } from "./Components/Inbox/Inbox";
+import Products from "./Components/Products/Products/Products";
+import Todos from "./Components/Todos/Todos";
+
+
+function App() {
+  return (
+    <section>
+        <h1>Shopping App</h1>
+        <Products/>
+    </section>
+  );
+}
+
+export default App;
