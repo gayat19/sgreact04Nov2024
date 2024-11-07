@@ -1,6 +1,7 @@
 import { useEffect,useState } from "react";
 import Product from "../Product/Product";
 import Cart from "../../Cart/Cart";
+import Button from '@mui/material/Button';
 
 export function Products(props){
     const [products,setProducts]=useState([]);
@@ -27,10 +28,22 @@ const addToCart=(id)=>{
     else
         setCart([...cart,{id:id,qty:1}]);
 }
+const buy=()=>{
+    const cartdata={products:[...cart],userId:1};
+    console.log(cartdata);
+    fetch('https://dummyjson.com/carts/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(cartdata)
+      })
+      .then(res => res.json())
+      .then(console.log);
+}
     return(
         <section className='Products'>
             <div>
                 <h2>Cart</h2>
+                <Button onClick={buy} variant="contained">Buy products</Button>
                     {
                         cart.length>0?
                             cart.map((item)=><Cart key={item.id} item={item}/>)
