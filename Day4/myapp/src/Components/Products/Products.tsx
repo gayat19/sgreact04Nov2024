@@ -2,15 +2,21 @@ import { useEffect ,useState} from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import Product from "../Product/Product";
 import { Productmodel } from "../../Models/Product";
+import { GetProducts } from "../../Services/ProductService";
+
 
 export default function Products() {
     const [products, setProducts] = useState([]);   
     useEffect(()=>{
-        fetch('https://dummyjson.com/products')
-        .then(res=>res.json())
+        // GetProducts()
+        // .then(json=>{
+        //     setProducts(json.products);
+        //     //console.log(products)
+        // })
+         GetProducts()
         .then(json=>{
-            setProducts(json.products);
-            //console.log(products)
+           // setProducts(json.products);
+            console.log(products)
         })
 
         
@@ -21,7 +27,8 @@ export default function Products() {
       {
         products?.length>0 ?
             products.map((product:Productmodel)=>(
-                <Product key={product.id} title={product.title} price={product.price} thumbnail={product.thumbnail} id={product.id} description={product.description} />
+                // <Product key={product.id} title={product.title} price={product.price} thumbnail={product.thumbnail} id={product.id} description={product.description} />
+                <Product key={product.id} product={product} />
             ))
             :  <CircularProgress />
       }

@@ -4,6 +4,8 @@ import './App.css';
 import Box from '@mui/material/Box';
 import Products from './Components/Products/Products';
 import Grid from '@mui/material/Grid2';
+import AddProduct from './Components/AddProduct/AddProduct';
+import { Login } from './Components/Login/Login';
 
 
 function App() {
@@ -17,8 +19,10 @@ function App() {
         </Grid>
         <Grid size={6}>
         <section>
-         
-          <Products />
+        <Products />
+         {/* <AddProduct/>
+          <Products /> */}
+          <Login/>
           </section>
         </Grid>
       
